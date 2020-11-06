@@ -65,6 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bed85928748a648b0d9af5cf21d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rcsThrust: 250
+  mainThrust: 7.51
+  mainEngine: {fileID: 8300000, guid: 2bdff2bb0496021419ae1c2e9adb31bd, type: 3}
+  success: {fileID: 8300000, guid: 6ec4dad24965196419e0722cb1168f08, type: 3}
+  death: {fileID: 8300000, guid: 776a3be55c5de0347aae3ab83fce6ccb, type: 3}
+  state: 0
 --- !u!82 &486095111436333851
 AudioSource:
   m_ObjectHideFlags: 0
