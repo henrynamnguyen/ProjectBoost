@@ -23,7 +23,8 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem deathParticles;
 
     enum State { Alive, Dying, Transcending };
-    [SerializeField]State state = State.Alive;
+    [SerializeField] State state = State.Alive;
+    public bool collisionsDisabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,11 +41,28 @@ public class Rocket : MonoBehaviour
             RespondToThrustInput();
             RespondToRotateInput();
         }
+
+        if (Debug.isDebugBuild)
+        {
+            RespondToDebugKeys();
+        }
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive) { return; } //ignore collision when dead
+        if (state != State.Alive || collisionsDisabled) { return; } //ignore collision when dead or press 'C'
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -112,7 +130,7 @@ public class Rocket : MonoBehaviour
 
     private void RespondToRotateInput()
     {
-        rigidBody.freezeRotation = true; //after this line, we assume manual control of the rotarion
+        rigidBody.angularVelocity = Vector3.zero; ; //after this line, we assume manual control of the rotarion
         float rotationThisFrame = rcsThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
         {
@@ -122,7 +140,8 @@ public class Rocket : MonoBehaviour
         {
             transform.Rotate(-Vector3.forward * rotationThisFrame);
         }
-        rigidBody.freezeRotation = false; //resume physics control of rotation
+        
     }
 
+    
 }

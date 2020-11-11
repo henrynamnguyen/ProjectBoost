@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Friendly
   - Fuel
+  - Portal1
   layers:
   - Default
   - TransparentFX
